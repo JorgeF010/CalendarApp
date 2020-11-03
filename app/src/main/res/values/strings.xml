@@ -3,6 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_notes">Notes</string>
-    <string name="hint">goal</string>
+    <string name="hint">What is your goal for today?</string>
     <string name="textview">TextView</string>
 </resources>
