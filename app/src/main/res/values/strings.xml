@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">OrganizeMe</string>
+    <string name="title_home">Home</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_notes">Notes</string>
+    <string name="hint">goal</string>
+    <string name="textview">TextView</string>
+</resources>
