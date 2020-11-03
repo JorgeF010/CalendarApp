@@ -1,4 +1,4 @@
-package com.example.calendarapp.ui.notifications;
+package com.example.calendarapp.ui.notes;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,11 +23,11 @@ public class NotesFragment extends Fragment {
         notesViewModel =
                 new ViewModelProvider(this).get(NotesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
+//        final TextView textView = root.findViewById(R.id.text_notifications);
         notesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+//                textView.setText(s);
             }
         });
         return root;
