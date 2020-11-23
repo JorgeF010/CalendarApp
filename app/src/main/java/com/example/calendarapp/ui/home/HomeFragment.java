@@ -1,9 +1,14 @@
 package com.example.calendarapp.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +18,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.calendarapp.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +40,8 @@ public class HomeFragment extends Fragment {
         final TextView textViewDate = root.findViewById(R.id.textViewDate);
         final TextView textViewTime = root.findViewById(R.id.textViewTime);
         final TextView textViewQuote = root.findViewById(R.id.textQuote);
+        final TextInputLayout textInputLayout = root.findViewById(R.id.textInputLayout);
+        final Button submitGoal = root.findViewById(R.id.buttonSubmit);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -45,9 +54,31 @@ public class HomeFragment extends Fragment {
                 textViewDate.setText(date);
                 textViewTime.setText(time);
                 textViewQuote.setText(getRandomQuote());
+                textView.setText("Today's Goal: " + getGoal(getContext()));
             }
         });
+        submitGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String goal = textInputLayout.getEditText().getText().toString();
+                setGoal(view.getContext(), goal);
+                textView.setText("Today's Goal: " + getGoal(getContext()));
+            }
+        });
+
         return root;
+    }
+
+    public static void setGoal(Context context, String text) {
+        SharedPreferences preferences = context.getSharedPreferences("myAppPackage", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("goal", text);
+        editor.commit();
+    }
+
+    public static String getGoal(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("myAppPackage", 0);
+        return preferences.getString("goal", "");
     }
 
     public String getRandomQuote() {
